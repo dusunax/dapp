@@ -12,6 +12,7 @@ dfx start
 ```
 
 - 로컬 dfx deploy
+```
 dfx deploy
 ```
 

@@ -1,19 +1,52 @@
 import { dbank0423 } from "../../declarations/dbank0423";
 
-document.querySelector("form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const button = e.target.querySelector("button");
+/** 화면에 dbank의 currentValue를 출력합니다. */
+async function printCurrentAmount () {
+  const currentAmount = await dbank0423.checkBalance();  
+  console.log(currentAmount);
+  document.getElementById("value").innerText = setLocalMoney(currentAmount);
+}
 
-  const name = document.getElementById("name").value.toString();
+/** 숫자를 소숫점 1자리 까지 잘라, 3자리마다 ","를 찍어 반환합니다. */
+function setLocalMoney (int) {
+  return int.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
-  button.setAttribute("disabled", true);
+window.addEventListener("load", async ()=>{
+  printCurrentAmount();
 
-  // Interact with foo actor, calling the greet method
-  const greeting = await dbank0423.greet(name);
+  const inputEl = document.getElementById("input-amount");
+  const outputEl = document.getElementById("withdrawal-amount");
 
-  button.removeAttribute("disabled");
+  inputEl.addEventListener("focus", ()=>{ outputEl.value = "" });
+  outputEl.addEventListener("focus", ()=>{ inputEl.value = "" });
+});
 
-  document.getElementById("greeting").innerText = greeting;
+document.querySelector("form").addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-  return false;
+  const submitButton = document.getElementById("submit-btn");
+  const inputEl = document.getElementById("input-amount");
+  const outputEl = document.getElementById("withdrawal-amount");
+
+  const inputAmount = parseFloat(inputEl.value);
+  const outputAmount = parseFloat(outputEl.value);
+
+  inputEl.value = ""
+  outputEl.value = ""
+
+  submitButton.setAttribute("disabled", true);
+
+  if(inputAmount) {
+    await dbank0423.topUp(inputAmount);
+  }
+
+  if(outputAmount) {
+    await dbank0423.withdrawl(outputAmount);
+  }
+
+  await dbank0423.compound();
+  
+  printCurrentAmount();
+  submitButton.removeAttribute("disabled")
 });
