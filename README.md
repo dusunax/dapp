@@ -1,6 +1,6 @@
 # DeFi DApp - Bank App 예제 feat. Internet Computer
 
-![image](https://user-images.githubusercontent.com/94776135/233848386-9765ca2d-6b41-4223-875c-a14f0257c5fd.png)
+![chrome-capture-2023-3-24-3](https://user-images.githubusercontent.com/94776135/233849008-37c78d49-bfde-4ac4-bdf0-250ba4bd8e0c.gif)
 
 ---
 
