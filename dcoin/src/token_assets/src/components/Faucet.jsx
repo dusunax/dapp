@@ -14,7 +14,7 @@ function Faucet() {
         </span>
         Faucet
       </h2>
-      <label>Get your free Dcoin tokens here! Claim 10,000 D coins to your account.</label>
+      <label>Get your free Dcoin tokens here! Claim 10,000 DSA coins to your account.</label>
       <p className="trade-buttons">
         <button id="btn-payout" onClick={handleClick}>
           발행
