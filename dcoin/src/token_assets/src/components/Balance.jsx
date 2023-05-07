@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Principal } from '@dfinity/principal';
+import { token } from "../../../declarations/token/index";
 
 function Balance() {
+  const [inputValue, setInput] = useState("");
+  const [balanceResult, setBalance] = useState("");
+  const [cryptoSymbol, setCryptoSymbol] = useState("");
   
   async function handleClick() {
-    console.log("Balance Button Clicked");
-  }
+    const principal = Principal.fromText(inputValue);
+    const balance = await token.balanceOf(principal);
 
+    setBalance(balance.toLocaleString());
+    setCryptoSymbol(await token.getSymbol());
+  };
 
   return (
     <div className="window white">
@@ -15,6 +23,9 @@ function Balance() {
           id="balance-principal-id"
           type="text"
           placeholder="Enter a Principal ID"
+          value={inputValue}
+            onChange={(e) => setInput(e.target.value)
+          }
         />
       </p>
       <p className="trade-buttons">
@@ -22,10 +33,10 @@ function Balance() {
           id="btn-request-balance"
           onClick={handleClick}
         >
-          Check Balance
+          잔고 확인하기
         </button>
       </p>
-      <p>This account has a balance of XYZ.</p>
+      <p>{balanceResult && `This account has a balance of ${balanceResult} ${cryptoSymbol}.`}</p>
     </div>
   );
 }
