@@ -14,10 +14,10 @@ function Faucet() {
         </span>
         Faucet
       </h2>
-      <label>Get your free DAngela tokens here! Claim 10,000 DANG coins to your account.</label>
+      <label>Get your free Dcoin tokens here! Claim 10,000 D coins to your account.</label>
       <p className="trade-buttons">
         <button id="btn-payout" onClick={handleClick}>
-          Gimme gimme
+          발행
         </button>
       </p>
     </div>
