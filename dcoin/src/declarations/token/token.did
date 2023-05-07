@@ -1,4 +1,7 @@
 service : {
   balanceOf: (principal) -> (nat) query;
+  getPrincipal: () -> (principal);
   getSymbol: () -> (text) query;
+  isNullCallerBalances: () -> (bool);
+  payOut: () -> (text);
 }

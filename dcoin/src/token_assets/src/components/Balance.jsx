@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Principal } from '@dfinity/principal';
 import { token } from "../../../declarations/token/index";
+import Spinner from "./spinner/Spinner";
 
 function Balance() {
   const [inputValue, setInput] = useState("");
   const [balanceResult, setBalance] = useState("");
   const [cryptoSymbol, setCryptoSymbol] = useState("");
+
+  const [loading, setLoading] = useState(false);
   
   async function handleClick() {
     const principal = Principal.fromText(inputValue);
@@ -15,9 +18,26 @@ function Balance() {
     setCryptoSymbol(await token.getSymbol());
   };
 
+  async function getUserPrincipal() {
+    setLoading(true);
+    const user = await token.getPrincipal();
+
+    if(user){
+      setInput(user.toText());
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="window white">
-      <label>Check account token balance:</label>
+      <label>Check account token balance:</label> 
+      {loading ? 
+        <Spinner />
+        :
+        <button onClick={getUserPrincipal}>
+          나의 Principal
+        </button>
+      }
       <p>
         <input
           id="balance-principal-id"
