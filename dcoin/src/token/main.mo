@@ -12,6 +12,10 @@ actor Token {
 
   balances.put(owner, totalSupply);
 
+  // ---------------------------------------
+  // 사용자 및 캐니스터 확인 get balances, symbol, principal
+  // ---------------------------------------
+
   /** Principal로 잔고를 확인합니다. */
   public query func balanceOf(who: Principal) : async Nat {
     let balance : Nat = switch (balances.get(who)){
@@ -27,6 +31,20 @@ actor Token {
     return symbol;
   };
 
+  /** 최초 상태의 사용자인지 확인 */
+  public shared(msg) func isNullCallerBalances() : async Bool {
+    return balances.get(msg.caller) == null;
+  };
+
+  /** 현재 사용자의 principal ID 확인 */
+  public shared(msg) func getPrincipal() : async Principal {
+    return msg.caller;
+  };
+
+  // ---------------------------------------
+  // 최초 입금 Faucet
+  // ---------------------------------------
+
   /** faucet을 사용자당 최초 1회 입금 */
   public shared(msg) func payOutFaucet() : async Text {
 	  // Debug.print(debug_show(msg.caller));
@@ -40,17 +58,11 @@ actor Token {
     }
   };
 
-  /** 최초 상태의 사용자인지 확인 */
-  public shared(msg) func isNullCallerBalances() : async Bool {
-    return balances.get(msg.caller) == null;
-  };
+  // ---------------------------------------
+  // 송금 transfer
+  // ---------------------------------------
 
-  /** 현재 사용자의 principal ID 확인 */
-  public shared(msg) func getPrincipal() : async Principal {
-    return msg.caller;
-  };
-
-  /** 현재 사용자의 principal ID 확인 */
+  /** transfer를 실행한 caller의 balance를 입력받은 Principal로 amount만큼 송금합니다. */
   public shared(msg) func transfer(to: Principal, amount: Nat) : async Text {
     // from msg.caller to Principal, as amount
     let fromBalance = await balanceOf(msg.caller);
