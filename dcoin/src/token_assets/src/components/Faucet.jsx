@@ -6,11 +6,10 @@ function Faucet() {
   const [loading, setLoading] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const [buttonMsg, setButtonMsg] = useState('발행');
-  const [isFirstFaucet, setIsFirstFaucet] = useState(false);
 
   async function handleClick(event) {
     setLoading(true);
-    const result = await token.payOut();
+    const result = await token.payOutFaucet();
     
     if(result) {
       setIsDisabled(true);
@@ -30,7 +29,7 @@ function Faucet() {
       setButtonMsg("이미 지급 되었어요.🙄");
       setIsDisabled(true);
     }
-    
+
     setLoading(false);
   };
 

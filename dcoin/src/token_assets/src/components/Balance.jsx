@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Principal } from '@dfinity/principal';
 import { token } from "../../../declarations/token/index";
+
 import Spinner from "./spinner/Spinner";
 
 function Balance() {
@@ -44,14 +45,14 @@ function Balance() {
           type="text"
           placeholder="Enter a Principal ID"
           value={inputValue}
-            onChange={(e) => setInput(e.target.value)
-          }
+          onChange={(e) => setInput(e.target.value)}
         />
       </p>
       <p className="trade-buttons">
         <button
           id="btn-request-balance"
           onClick={handleClick}
+          disabled={inputValue.length === 0}
         >
           잔고 확인하기
         </button>

@@ -4,7 +4,8 @@ export const idlFactory = ({ IDL }) => {
     'getPrincipal' : IDL.Func([], [IDL.Principal], []),
     'getSymbol' : IDL.Func([], [IDL.Text], ['query']),
     'isNullCallerBalances' : IDL.Func([], [IDL.Bool], []),
-    'payOut' : IDL.Func([], [IDL.Text], []),
+    'payOutFaucet' : IDL.Func([], [IDL.Text], []),
+    'transfer' : IDL.Func([IDL.Principal, IDL.Nat], [IDL.Text], []),
   });
 };
 export const init = ({ IDL }) => { return []; };

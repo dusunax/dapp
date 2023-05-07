@@ -27,8 +27,8 @@ actor Token {
     return symbol;
   };
 
-  /** 입금 */
-  public shared(msg) func payOut() : async Text {
+  /** faucet을 사용자당 최초 1회 입금 */
+  public shared(msg) func payOutFaucet() : async Text {
 	  // Debug.print(debug_show(msg.caller));
     if(balances.get(msg.caller) == null) {
       let amount = 10000;
@@ -48,5 +48,23 @@ actor Token {
   /** 현재 사용자의 principal ID 확인 */
   public shared(msg) func getPrincipal() : async Principal {
     return msg.caller;
+  };
+
+  /** 현재 사용자의 principal ID 확인 */
+  public shared(msg) func transfer(to: Principal, amount: Nat) : async Text {
+    // from msg.caller to Principal, as amount
+    let fromBalance = await balanceOf(msg.caller);
+    if(fromBalance > amount){
+      let newFromBalance : Nat = fromBalance - amount;
+      balances.put(msg.caller, newFromBalance);
+
+      let toBalance = await balanceOf(to);
+      let newToBalance = toBalance + amount;
+      balances.put(to, newToBalance);
+
+      return "송금 되었습니다.";
+    } else {
+      return "잔고가 부족합니다.";
+    }
   };
 }

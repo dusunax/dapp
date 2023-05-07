@@ -4,5 +4,6 @@ export interface _SERVICE {
   'getPrincipal' : () => Promise<Principal>,
   'getSymbol' : () => Promise<string>,
   'isNullCallerBalances' : () => Promise<boolean>,
-  'payOut' : () => Promise<string>,
+  'payOutFaucet' : () => Promise<string>,
+  'transfer' : (arg_0: Principal, arg_1: bigint) => Promise<string>,
 }

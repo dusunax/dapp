@@ -3,5 +3,6 @@ service : {
   getPrincipal: () -> (principal);
   getSymbol: () -> (text) query;
   isNullCallerBalances: () -> (bool);
-  payOut: () -> (text);
+  payOutFaucet: () -> (text);
+  transfer: (principal, nat) -> (text);
 }
