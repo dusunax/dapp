@@ -53,4 +53,3 @@ ubuntu, motoko, reactJS
 - [Web 3.0 & 블록체인](https://www.notion.so/Web-3-0-559b514448d24fd88a9d85501f711c2f)
 - [Internet Computer, local build](https://www.notion.so/Internet-Computer-local-build-b2ab6664518a4a6597ffc46d60cf632a)
 - [(작성중) Deploying ICP Blockchain](https://www.notion.so/Deploying-ICP-Blockchain-321138d7edf74b439f3795a484b73dc7)
-- [(작성중) [Motoko, ReactJS] google keep 예제](https://dusunax.notion.site/Motoko-ReactJS-45b1abf904ca4d3797afa081179b67f1)
