@@ -51,8 +51,15 @@ actor Token {
     if(balances.get(msg.caller) == null) {
       let amount = 10000;
 
-      balances.put(msg.caller, amount);
-      return "10,000 DSA 발행 🚩";
+      let result = await transfer(msg.caller, amount);
+      return result;
+
+      // 이전 코드 처럼 put을 사용해 balances를 생산하는 것이 아니라, 실제로 존재하는 balance의 transfer가 필요 합니다.
+      // - transfer from은? => "canister" Principal
+      // - canister_id가 balance를 가지고 있어야 합니다.
+      // -----------------------------------------------
+      // balances.put(msg.caller, amount);
+      // return "10,000 DSA 발행 🚩";
     } else {
       return "이미 지급 되었어요.🙄"
     }
@@ -64,7 +71,6 @@ actor Token {
 
   /** transfer를 실행한 caller의 balance를 입력받은 Principal로 amount만큼 송금합니다. */
   public shared(msg) func transfer(to: Principal, amount: Nat) : async Text {
-    // from msg.caller to Principal, as amount
     let fromBalance = await balanceOf(msg.caller);
     if(fromBalance > amount){
       let newFromBalance : Nat = fromBalance - amount;
