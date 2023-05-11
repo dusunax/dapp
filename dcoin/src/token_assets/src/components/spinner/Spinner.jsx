@@ -2,8 +2,8 @@ import React from "react";
 
 export default function Spinner() {
   return (
-    <div class="loadingio-spinner-spinner-7bx1cj9pit8">
-      <div class="ldio-zsily2o1tl">
+    <div className="loadingio-spinner-spinner-7bx1cj9pit8">
+      <div className="ldio-zsily2o1tl">
         <div></div>
         <div></div>
         <div></div>
