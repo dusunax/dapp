@@ -2,15 +2,16 @@ import Principal "mo:base/Principal";
 import HashMap "mo:base/HashMap";
 import Debug "mo:base/Debug";
 import Bool "mo:base/Bool";
+import Iter "mo:base/Iter";
 
 actor Token {
   let owner : Principal = Principal.fromText("tcj57-2hio4-izexp-xkuor-qqx4x-lnhsi-tqgnu-6qzr7-w5h7n-3qo3l-sae");
   let totalSupply : Nat = 1000000000;
   let symbol : Text = "DSA";
 
-  var balances = HashMap.HashMap<Principal, Nat>(1, Principal.equal, Principal.hash);
-
-  balances.put(owner, totalSupply);
+  // !private!
+  private stable var balanceEntries: [(Principal, Nat)] = [];
+  private var balances = HashMap.HashMap<Principal, Nat>(1, Principal.equal, Principal.hash);
 
   // ---------------------------------------
   // 사용자 및 캐니스터 확인 get balances, symbol, principal
@@ -85,4 +86,23 @@ actor Token {
       return "잔고가 부족합니다.";
     }
   };
+
+  /** 업그레이드 전에 실행하는 시스템 함수
+  * balances > balanceEntries
+  * balances의 값을 balanceEntries에 저장함
+   */
+  system func preupgrade() {
+    balanceEntries := Iter.toArray(balances.entries())
+  };
+  
+  /** 업그레이드 이후에 실행하는 시스템 함수 
+  * balanceEntries > balances
+  * stable한 변수(배열)에 저장한 값을 balances로 돌려놓음
+  */
+  system func postupgrade() {
+    balances := HashMap.HashMap<Principal, Nat>(1, Principal.equal, Principal.hash);
+    
+    // balances가 존재하지 않는 경우에만 ledger에 값을 지정합니다.
+    if (balances.size() < 1) balances.put(owner, totalSupply);
+  }
 }
