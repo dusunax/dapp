@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { token } from "../../../declarations/token/index";
+
+import { canisterId, createActor } from "../../../declarations/token/index";
+import { AuthClient } from "@dfinity/auth-client/lib/cjs/index";
+
 import Spinner from "./spinner/Spinner";
 
 function Faucet() {
@@ -9,7 +12,18 @@ function Faucet() {
 
   async function handleClick(event) {
     setLoading(true);
-    const result = await token.payOutFaucet();
+
+    // AuthClient를 await로 생성
+    const authClient = await AuthClient.create();
+    const identity = await authClient.getIdentity();
+
+    const authCanister = createActor(canisterId, {
+      agentOptions:{
+        identity,
+      },
+    });
+
+    const result = await authCanister.payOutFaucet();
     
     if(result) {
       setIsDisabled(true);
@@ -23,7 +37,7 @@ function Faucet() {
 
   async function chkIsFirstFaucet() {
     setLoading(true);
-    const result = await token.isNullCallerBalances();
+    const result = await authCanister.isNullCallerBalances();
 
     if(!result) {
       setButtonMsg("이미 지급 되었어요.🙄");
