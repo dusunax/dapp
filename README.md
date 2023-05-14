@@ -15,9 +15,9 @@ Internet Computer, DApps, ICP, NFT
 ---
 
 ## 예제B. DKeeper _ 230503
-- CRUD
-- ReactJS에서 query func 또는 func import
-- List의 특이사항 확인(pick, drop, append List)
+- CRUD (List 타입의 특이사항 확인(pick, drop, append List))
+- ReactJS에서 motoko의 query func & func import해서 연결
+- 데이터 유지 = stable
 
 ![image](https://user-images.githubusercontent.com/94776135/236684438-77d74e02-6322-413f-960d-0c3c7a28bac7.png)
 
