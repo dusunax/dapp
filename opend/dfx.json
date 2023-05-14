@@ -1,19 +1,18 @@
 {
   "canisters": {
-    "dopen": {
-      "main": "src/dopen/main.mo",
+    "opend": {
+      "main": "src/opend/main.mo",
       "type": "motoko"
     },
-    "dopen_assets": {
+    "opend_assets": {
       "dependencies": [
-        "dopen"
+        "opend"
       ],
       "frontend": {
-        "entrypoint": "src/dopen_assets/src/index.html"
+        "entrypoint": "src/opend_assets/src/index.html"
       },
       "source": [
-        "src/dopen_assets/assets",
-        "dist/dopen_assets/"
+        "dist/opend_assets/"
       ],
       "type": "assets"
     }
@@ -24,7 +23,7 @@
       "packtool": ""
     }
   },
-  "dfx": "0.9.3",
+  "dfx": "0.14.0",
   "networks": {
     "local": {
       "bind": "127.0.0.1:8000",
