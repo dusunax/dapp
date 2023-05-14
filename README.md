@@ -1,14 +1,14 @@
-# DeFi DApp 예제 만들기 feat. Internet Computer
+# DeFi DApp 예제 만들기
 
 주제
 ```
-인터넷 컴퓨터, DApps, ICP
+Internet Computer, DApps, ICP, NFT
 ```
 
 ---
 
 ## 예제A. Dbank _ 230423
-- 기본 개념 및 문법 확인
+- 기본 ICP 개념 및 motoko 문법 확인
 
 ![chrome-capture-2023-3-24-3](https://user-images.githubusercontent.com/94776135/233849008-37c78d49-bfde-4ac4-bdf0-250ba4bd8e0c.gif)
 
@@ -24,7 +24,12 @@
 ---
 
 ## 예제C. DCoin _ 230507
-- shared의 msg.caller 확인
+- shared의 msg.caller 확인: faucet 지급
+- Principal을 통해 balances hash map 확인
+- 특정 Principal로 balance transfer
+
+![image](https://github.com/dusunax/dapp/assets/94776135/7da4213c-3f55-4a7b-a91d-0ff8672a61f8)
+
 
 ---
 
